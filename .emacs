@@ -37,10 +37,14 @@
 (when (fboundp 'windmove-default-keybindings)
   (windmove-default-keybindings))
 
+;; https://cestlaz.github.io/posts/using-emacs-4-buffers/
 ;; https://www.masteringemacs.org/article/introduction-to-ido-mode
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
 (ido-mode 1)
+
+(defalias 'list-buffers 'ibuffer) ; make ibuffer default
+;(defalias 'list-buffers 'ibuffer-other-window) ; make ibuffer default
 
 ;; display line numbers
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
