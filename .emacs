@@ -59,3 +59,6 @@
 :ensure t
 :config
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+
+;; https://cestlaz.github.io/posts/using-emacs-3-elisp/
+(tool-bar-mode -1)
