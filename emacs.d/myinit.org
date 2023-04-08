@@ -1,110 +1,122 @@
 #+STARTUP: overview
-* interface tweaks
-#+BEGIN_SRC emacs-lisp
-(setq inhibit-startup-message t)
+* Interface Tweaks
+#+BEGIN_SRC Emacs-Lisp
+(Setq Inhibit-Startup-Message T)
 
-;; disable bell sound
-(setq ring-bell-function 'ignore)
+;; Disable Bell Sound
+(Setq Ring-Bell-Function 'Ignore)
 
-;; always show line numbers
-(global-linum-mode 1)
+;; Always Show Line Numbers
+(Global-Linum-Mode 1)
 
-(fset 'yes-or-no-p 'y-or-n-p)
-(global-set-key (kbd "<f5>") 'revert-buffer)
+(Fset 'Yes-Or-No-P 'Y-Or-N-P)
+(Global-Set-Key (Kbd "<F5>") 'Revert-Buffer)
 
 ;; Slime
-(setq inferior-lisp-program "C:/Program Files (x86)/clisp-2.49/clisp.exe")
+(Setq Inferior-Lisp-Program "C:/Program Files (X86)/Clisp-2.49/Clisp.Exe")
 
-;; set the default directory
-(setq default-directory "c:/Users/vishnu/programs/elisp")
+;; Set The Default Directory
+(Setq Default-Directory "C:/Users/Vishnu/Programs/Elisp")
 #+END_SRC
 
-* try
-#+BEGIN_SRC emacs-lisp
-(use-package try
-	     :ensure t)
+* Try
+#+BEGIN_SRC Emacs-Lisp
+(Use-Package Try
+	     :Ensure T)
 #+END_SRC
 
-* which key
-#+BEGIN_SRC emacs-lisp
-(use-package which-key
-	     :ensure t
-	     :config
-	     (which-key-mode))
+* Which Key
+#+BEGIN_SRC Emacs-Lisp
+(Use-Package Which-Key
+	     :Ensure T
+	     :Config
+	     (Which-Key-Mode))
 #+END_SRC
 
-* Ace windows
-#+BEGIN_SRC emacs-lisp
-; add this to init.el
-(use-package ace-window
-  :ensure t
-  :init
-  (progn
-    (global-set-key [remap other-window] 'ace-window)
-    (custom-set-faces
-     '(aw-leading-char-face
-       ((t (:inherit ace-jump-face-foreground :height 3.0)))))
+* Ace Windows
+#+BEGIN_SRC Emacs-Lisp
+; Add This To Init.El
+(Use-Package Ace-Window
+  :Ensure T
+  :Init
+  (Progn
+    (Global-Set-Key [Remap Other-Window] 'Ace-Window)
+    (Custom-Set-Faces
+     '(Aw-Leading-Char-Face
+       ((T (:Inherit Ace-Jump-Face-Foreground :Height 3.0)))))
     ))
 #+END_SRC
 
 * Swiper/ Ivy/ Counsel
-#+BEGIN_SRC emacs-lisp
-;; https://cestlaz.github.io/posts/using-emacs-6-swiper/
-;; it looks like counsel is a requirement for swiper
-(use-package counsel
-  :ensure t
+#+BEGIN_SRC Emacs-Lisp
+;; Https://Cestlaz.Github.Io/Posts/Using-Emacs-6-Swiper/
+;; It Looks Like Counsel Is A Requirement For Swiper
+(Use-Package Counsel
+  :Ensure T
   )
 
-(use-package swiper
-  :ensure try
-  :config
-  (progn
-    (ivy-mode 1)
-    (setq ivy-use-virtual-buffers t)
-    (global-set-key "\C-s" 'swiper)
-    (global-set-key (kbd "C-c C-r") 'ivy-resume)
-    (global-set-key (kbd "<f6>") 'ivy-resume)
-    (global-set-key (kbd "M-x") 'counsel-M-x)
-    (global-set-key (kbd "C-x C-f") 'counsel-find-file)
-    (global-set-key (kbd "<f1> f") 'counsel-describe-function)
-    (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
-    (global-set-key (kbd "<f1> l") 'counsel-load-library)
-    (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
-    (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
-    (global-set-key (kbd "C-c g") 'counsel-git)
-    (global-set-key (kbd "C-c j") 'counsel-git-grep)
-    (global-set-key (kbd "C-c k") 'counsel-ag)
-    (global-set-key (kbd "C-x l") 'counsel-locate)
-    (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
-    (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)
+(Use-Package Swiper
+  :Ensure Try
+  :Config
+  (Progn
+    (Ivy-Mode 1)
+    (Setq Ivy-Use-Virtual-Buffers T)
+    (Global-Set-Key "\C-S" 'Swiper)
+    (Global-Set-Key (Kbd "C-C C-R") 'Ivy-Resume)
+    (Global-Set-Key (Kbd "<F6>") 'Ivy-Resume)
+    (Global-Set-Key (Kbd "M-X") 'Counsel-M-X)
+    (Global-Set-Key (Kbd "C-X C-F") 'Counsel-Find-File)
+    (Global-Set-Key (Kbd "<F1> F") 'Counsel-Describe-Function)
+    (Global-Set-Key (Kbd "<F1> V") 'Counsel-Describe-Variable)
+    (Global-Set-Key (Kbd "<F1> L") 'Counsel-Load-Library)
+    (Global-Set-Key (Kbd "<F2> I") 'Counsel-Info-Lookup-Symbol)
+    (Global-Set-Key (Kbd "<F2> U") 'Counsel-Unicode-Char)
+    (Global-Set-Key (Kbd "C-C G") 'Counsel-Git)
+    (Global-Set-Key (Kbd "C-C J") 'Counsel-Git-Grep)
+    (Global-Set-Key (Kbd "C-C K") 'Counsel-Ag)
+    (Global-Set-Key (Kbd "C-X L") 'Counsel-Locate)
+    (Global-Set-Key (Kbd "C-S-O") 'Counsel-Rhythmbox)
+    (Define-Key Read-Expression-Map (Kbd "C-R") 'Counsel-Expression-History)
     ))
 #+END_SRC
 
-* Avy - navigate by searching for a letter on the screen and jumpig to it
-#+BEGIN_SRC emacs-lisp
-(use-package avy
-  :ensure t
-  :bind ("C-:" . avy-goto-char))
+* Avy - Navigate By Searching For A Letter On The Screen And Jumpig To It
+#+BEGIN_SRC Emacs-Lisp
+(Use-Package Avy
+  :Ensure T
+  :Bind ("C-:" . Avy-Goto-Char))
 #+END_SRC
 
 * Autocomplete
-#+BEGIN_SRC emacs-lisp
-;; https://cestlaz.github.io/posts/using-emacs-8-autocomplete/
-(use-package auto-complete
-  :ensure t
-  :init
-  (progn
-    (ac-config-default)
-    (global-auto-complete-mode t)
+#+BEGIN_SRC Emacs-Lisp
+;; Https://Cestlaz.Github.Io/Posts/Using-Emacs-8-Autocomplete/
+(Use-Package Auto-Complete
+  :Ensure T
+  :Init
+  (Progn
+    (Ac-Config-Default)
+    (Global-Auto-Complete-Mode T)
     ))
 #+END_SRC
 
 * Themes
-#+BEGIN_SRC emacs-lisp
-(use-package zenburn-theme
-  :ensure t
-  :config (load-theme 'zenburn t))
+#+BEGIN_SRC Emacs-Lisp
+(Use-Package Zenburn-Theme
+  :Ensure T
+  :Config (Load-Theme 'Zenburn T))
 
-(use-package color-theme-modern
-  :ensure t)
+(Use-Package Color-Theme-Modern
+  :Ensure T)
+#+END_SRC
+
+* Reveal.Js
+#+BEGIN_SRC emacs-lisp
+  (use-package ox-reveal
+    :ensure ox-reveal)
+
+  (setq org-reveal-root "http://cdn.jsdelivr.net/reveal.js/3.0.0/")
+  (setq org-reveal-mathjax t)
+
+  (use-package htmlize
+    :ensure t)
 #+END_SRC
