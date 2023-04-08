@@ -53,3 +53,9 @@
 ;; To use ssh in windows os
 (setq explicit-shell-file-name "/bin/bash")
 (setq tramp-default-mode "ssh")
+
+;; https://cestlaz.github.io/posts/using-emacs-2-org/
+(use-package org-bullets
+:ensure t
+:config
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
