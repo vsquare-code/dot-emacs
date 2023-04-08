@@ -37,6 +37,19 @@
 (when (fboundp 'windmove-default-keybindings)
   (windmove-default-keybindings))
 
+;; https://cestlaz.github.io/posts/using-emacs-5-windows/
+(use-package ace-window
+  :ensure t
+  :init
+  (progn
+    (global-set-key [remap other-window] 'ace-window)
+    (custom-set-faces
+     '(aw-leading-char-face
+       ((t (:inherit ace-jump-face-foreground :height 3.0)))))
+    ))
+
+; (winner-mode 1) ; Use C-c left or right to move through past window configurations
+
 ;; https://cestlaz.github.io/posts/using-emacs-4-buffers/
 ;; https://www.masteringemacs.org/article/introduction-to-ido-mode
 (setq ido-enable-flex-matching t)
