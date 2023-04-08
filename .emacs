@@ -114,3 +114,12 @@
 (use-package avy
   :ensure t
   :bind ("C-:" . avy-goto-char))
+
+;; https://cestlaz.github.io/posts/using-emacs-8-autocomplete/
+(use-package auto-complete
+  :ensure t
+  :init
+  (progn
+    (ac-config-default)
+    (global-auto-complete-mode t)
+    ))
