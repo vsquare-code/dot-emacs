@@ -2,10 +2,36 @@
 ;; Date: 2022-12-12
 ;; My .emacs
 
+(setq inhibit-startup-message t)
+
+;; disable bell sound
+(setq ring-bell-function 'ignore)
+
+;; always show line numbers
+(global-linum-mode 1)
+
+;; https://cestlaz.github.io/posts/using-emacs-1-setup/
 ;; Add repository.
+(require 'package)
+(setq package-enable-at-startup nil)
 (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/"))
 (add-to-list 'package-archives '("nongnu" . "https://elpa.nongnu.org/packages/"))
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+
+(package-initialize)
+
+;; Bootstrap `use-package'
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
+(use-package try
+	     :ensure t)
+
+(use-package which-key
+	     :ensure t
+	     :config
+	     (which-key-mode))
 
 ;; https://www.emacswiki.org/emacs/WindMove
 (when (fboundp 'windmove-default-keybindings)
