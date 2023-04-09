@@ -34,6 +34,46 @@
 	     (which-key-mode))
 #+END_SRC
 
+* Org mode
+#+BEGIN_SRC emacs-lisp
+  (use-package org-bullets
+    :ensure t
+    :config
+    (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+
+  (custom-set-variables
+   '(org-directory "~/vishnu/orgfiles")
+   '(org-default-notes-file (concat org-directory "/notes.org"))
+   '(org-export-html-postamble nil)
+   '(org-hide-leading-stars t)
+   '(org-startup-folded (quote overview))
+   '(org-startup-indented t))
+
+  (global-set-key "\C-ca" 'org-agenda)
+  (global-set-key (kbd "C-c c") 'org-capture)
+
+  (setq org-agenda-files (list "~/vishnu/orgfiles/calender.org"
+			       "~/vishnu/orgfiles/notes.org"
+			       "~/vishnu/orgfiles/idea.org"
+			       "~/vishnu/orgfiles/journal.org"
+			       "~/vishnu/orgfiles/snotes.org"))
+
+  (setq org-capture-templates
+	'(("a" "Appointment" entry (file+headline  "~/vishnu/orgfiles/calender.org" "Appointments")
+	   "* TODO %?\n:PROPERTIES:\n\n:END:\nDEADLINE: %^T \n %i\n")
+	  ("n" "Note" entry (file+headline "~/vishnu/orgfiles/notes.org" "Notes")
+	   "* Note %?\n%T")
+	  ("l" "Link" entry (file+headline "~/vishnu/orgfiles/links.org" "Links")
+	   "* %? %^L %^g \n%T" :prepend t)
+	  ("b" "Blog idea" entry (file+headline "~/vishnu/orgfiles/idea.org" "Blog Topics:")
+	   "* %?\n%T" :prepend t)
+	  ("t" "To Do Item" entry (file+headline "~/vishnu/orgfiles/idea.org" "To Do Items")
+	   "* %?\n%T" :prepend t)
+	  ("j" "Journal" entry (file+datetree "~/vishnu/journal.org")
+	   "* %?\nEntered on %U\n  %i\n  %a")
+	  ("s" "Screencast" entry (file "~/vishnu/orgfiles/snotes.org")
+	   "* %?\n%i\n")))
+#+END_SRC
 * Ace Windows
 #+BEGIN_SRC emacs-lisp
 ; add this to init.el
