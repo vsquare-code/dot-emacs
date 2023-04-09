@@ -169,4 +169,7 @@
     :ensure t
     :config
     (global-set-key (kbd "C-=") 'er/expand-region))
+
+  (use-package iedit
+    :ensure t) 
 #+END_SRC
