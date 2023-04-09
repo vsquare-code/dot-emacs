@@ -120,3 +120,10 @@
   (use-package htmlize
     :ensure t)
 #+END_SRC
+* Flycheck
+#+BEGIN_SRC emacs-lisp
+  (use-package flycheck
+    :ensure t
+    :init
+    (global-flycheck-mode t))
+#+END_SRC
