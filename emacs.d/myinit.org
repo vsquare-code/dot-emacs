@@ -83,9 +83,9 @@
 
 * Avy - Navigate By Searching For A Letter On The Screen And Jumpig To It
 #+BEGIN_SRC emacs-lisp
-(Use-Package Avy
-  :Ensure T
-  :Bind ("C-:" . Avy-Goto-Char))
+(use-package avy
+  :ensure t
+  :bind ("c-:" . avy-goto-char))
 #+END_SRC
 
 * Autocomplete
