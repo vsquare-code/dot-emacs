@@ -173,6 +173,11 @@
     :config
     (global-set-key (kbd "C-=") 'er/expand-region))
 
+  (setq save-interprogram-paste-before-kill t)
+
+  (global-auto-revert-mode 1) ;; you might not want this
+  (setq auto-revert-verbose nil) ;; or this
+
   (use-package iedit
     :ensure t) 
 #+END_SRC
