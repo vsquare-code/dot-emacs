@@ -96,6 +96,13 @@
     (delete-other-windows)
     (noflet ((switch-to-buffer-other-window (buf) (switch-to-buffer buf)))
 	    (org-capture)))
+
+  (global-set-key (kbd "\e\ei")
+		  (lambda () (interactive) (find-file "~/vishnu/orgfiles/idea.org")))
+  (global-set-key (kbd "\e\el")
+		  (lambda () (interactive) (find-file "~/vishnu/orgfiles/links.org")))
+  (global-set-key (kbd "\e\ec")
+		  (lambda () (interactive) (find-file "~/emacs.d/myinit.org")))
 #+END_SRC
 * Ace Windows
 #+BEGIN_SRC emacs-lisp
