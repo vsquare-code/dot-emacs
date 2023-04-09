@@ -1,0 +1,2 @@
+* Org mode
+| C-c C-, | to insert begin end src code block
