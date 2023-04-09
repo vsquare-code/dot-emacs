@@ -1,13 +1,14 @@
 * Org mode
 | C-c C-, s   | to insert begin end src code block
 | C-c '       | edit the current block in temp buffer, use the same command to exit
+| C-c a a     | displays current Week or day agenda
 * Elisp commands
 | C-M-x       | to execute elisp function where point is anywhere in the function
 | C-u C-M-x   | to execute elisp function where point is anywhere in the function and enable debug
 * Macro
 | <f3> | C-x ( | start creating kbd macro
 | <f4> | C-x ) | ends the macro creation
-| M-x name-last-kbd-macro | Give name to the recently created key board macro defined using <f3>
-| M-x insert-kbd-macro    | Insert the macro with name in the current buffer
+| M-x name-last-kbd-macro | | Give name to the recently created key board macro defined using <f3>
+| M-x insert-kbd-macro    | | Insert the macro with name in the current buffer
 * Undo tree commands (package: undo-tree)
 | C-x u | visualize undo tree
