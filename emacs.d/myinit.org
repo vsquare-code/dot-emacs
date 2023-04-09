@@ -139,3 +139,7 @@
   (use-package elpy
     :ensure t)
 #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (use-package paredit
+    :ensure t)
+#+END_SRC
