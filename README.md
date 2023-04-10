@@ -5,4 +5,4 @@ Python libs:
   3. pip install --upgrade pyflakes
 
 In emacs:
-  M-x jedi:install-server
+  1. M-x jedi:install-server
