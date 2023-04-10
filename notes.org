@@ -2,6 +2,8 @@
 | C-c C-, s   | to insert begin end src code block
 | C-c '       | edit the current block in temp buffer, use the same command to exit
 | C-c a a     | displays current Week or day agenda
+| C-c a t     | displays todo list
+| C-c a c     | displays agenda and todo list simultaneously
 * Elisp commands
 | C-M-x       | to execute elisp function where point is anywhere in the function
 | C-u C-M-x   | to execute elisp function where point is anywhere in the function and enable debug
