@@ -1,0 +1,41 @@
+;; Package setup
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(package-initialize)
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+(eval-when-compile (require 'use-package))
+
+;; Projectile
+(use-package projectile
+  :ensure t
+  :init (projectile-mode +1)
+  :bind-keymap ("C-c p" . projectile-command-map))
+
+;; LSP
+(use-package lsp-mode
+  :ensure t
+  :hook ((c-mode c++-mode python-mode sh-mode) . lsp)
+  :config (setq lsp-prefer-flymake nil))
+(use-package lsp-ui :ensure t)
+
+;; Flycheck
+(use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode))
+
+;; Python
+(use-package python
+  :config (setq python-shell-interpreter "python3"))
+(use-package pyvenv :ensure t)
+
+;; Large files
+(use-package vlf :ensure t :config (require 'vlf-setup))
+(global-so-long-mode 1)
+(defun my/large-file-hook ()
+  (when (> (buffer-size) (* 1024 1024))
+    (fundamental-mode)
+    (font-lock-mode -1)
+    (lsp-mode -1)))
+(add-hook 'find-file-hook #'my/large-file-hook)
