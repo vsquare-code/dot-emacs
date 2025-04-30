@@ -1,4 +1,6 @@
-;; Package setup
+#+STARTUP: overview
+* Package setup
+#+BEGIN_SRC emacs-lisp
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
@@ -6,31 +8,41 @@
   (package-refresh-contents)
   (package-install 'use-package))
 (eval-when-compile (require 'use-package))
+#+END_SRC
 
-;; Projectile
+* Projectile
+#+BEGIN_SRC emacs-lisp
 (use-package projectile
   :ensure t
   :init (projectile-mode +1)
   :bind-keymap ("C-c p" . projectile-command-map))
+#+END_SRC
 
-;; LSP
+* LSP
+#+BEGIN_SRC emacs-lisp
 (use-package lsp-mode
   :ensure t
   :hook ((c-mode c++-mode python-mode sh-mode) . lsp)
   :config (setq lsp-prefer-flymake nil))
 (use-package lsp-ui :ensure t)
+#+END_SRC
 
-;; Flycheck
+* Flycheck
+#+BEGIN_SRC emacs-lisp
 (use-package flycheck
   :ensure t
   :init (global-flycheck-mode))
+#+END_SRC
 
-;; Python
+* Python
+#+BEGIN_SRC emacs-lisp
 (use-package python
   :config (setq python-shell-interpreter "python3"))
 (use-package pyvenv :ensure t)
+#+END_SRC
 
-;; Large files
+* Large files
+#+BEGIN_SRC emacs-lisp
 (use-package vlf :ensure t :config (require 'vlf-setup))
 (global-so-long-mode 1)
 (defun my/large-file-hook ()
@@ -39,3 +51,4 @@
     (font-lock-mode -1)
     (lsp-mode -1)))
 (add-hook 'find-file-hook #'my/large-file-hook)
+#+END_SRC
