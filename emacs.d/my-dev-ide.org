@@ -14,17 +14,38 @@
 #+BEGIN_SRC emacs-lisp
 (use-package projectile
   :ensure t
-  :init (projectile-mode +1)
-  :bind-keymap ("C-c p" . projectile-command-map))
+  :init
+  (projectile-mode +1)
+  :bind-keymap
+  ("C-c p" . projectile-command-map))
+  :config
+  (setq projectile-project-search-path '("~/projects/"))
+  (setq projectile-switch-project-action #'projectile-dired))
+  (setq compilation-ask-about-save nil) ; Auto-save before compiling
+  (setq compilation-scroll-output t)   ; Follow compilation output
+#+END_SRC
+
+* cmake
+#+BEGIN_SRC emacs-lisp
+(use-package cmake-mode :ensure t)
 #+END_SRC
 
 * LSP
 #+BEGIN_SRC emacs-lisp
 (use-package lsp-mode
   :ensure t
+  :commands lsp
   :hook ((c-mode c++-mode python-mode sh-mode) . lsp)
-  :config (setq lsp-prefer-flymake nil))
-(use-package lsp-ui :ensure t)
+  :config
+  (setq lsp-prefer-flymake nil) ; Use flycheck for diagnostics
+  (setq lsp-idle-delay 0.5))    ; Adjust for responsiveness
+
+(use-package lsp-ui
+  :ensure t
+  :commands lsp-ui-mode
+  :config
+  (setq lsp-ui-sideline-enable t)
+  (setq lsp-ui-doc-enable t))
 #+END_SRC
 
 * Flycheck
@@ -39,6 +60,70 @@
 (use-package python
   :config (setq python-shell-interpreter "python3"))
 (use-package pyvenv :ensure t)
+#+END_SRC
+
+* pyenv
+#+BEGIN_SRC emacs-lisp
+(use-package pyvenv :ensure t)
+#+END_SRC
+
+* C/C++: Use ctags or gtags with helm-gtags
+#+BEGIN_SRC emacs-lisp
+(use-package helm-gtags
+  :ensure t
+  :hook ((c-mode c++-mode) . helm-gtags-mode))
+#+END_SRC
+
+* Python/Bash: Use dumb-jump for simple navigation
+#+BEGIN_SRC emacs-lisp
+(use-package dumb-jump
+  :ensure t
+  :bind (("M-g o" . dumb-jump-go)))
+#+END_SRC
+
+* Use vlf (Very Large Files) Package
+#+BEGIN_SRC emacs-lisp
+(use-package vlf
+  :ensure t
+  :config
+  (require 'vlf-setup))
+#+END_SRC
+
+* Disable heavy modes:
+#+BEGIN_SRC emacs-lisp
+(defun my/large-file-hook ()
+  (when (> (buffer-size) (* 1024 1024)) ; For files >1MB
+    (fundamental-mode)                  ; Disable language modes
+    (font-lock-mode -1)                 ; Disable syntax highlighting
+    (lsp-mode -1)))                     ; Disable LSP
+(add-hook 'find-file-hook #'my/large-file-hook)
+#+END_SRC
+
+* Use so-long: Emacs 27+ includes so-long to handle long lines. Enable it:
+#+BEGIN_SRC emacs-lisp
+(global-so-long-mode 1)
+#+END_SRC
+
+* swiper
+#+BEGIN_SRC emacs-lisp
+(use-package swiper
+  :ensure t
+  :bind (("C-s" . swiper)))
+#+END_SRC
+
+* For project-wide search, use projectile with ripgrep:
+#+BEGIN_SRC emacs-lisp
+(use-package projectile-ripgrep
+  :ensure t
+  :bind (:map projectile-command-map
+              ("s r" . projectile-ripgrep)))
+#+END_SRC
+
+* Install company for better completion UI:
+#+BEGIN_SRC emacs-lisp
+(use-package company
+  :ensure t
+  :hook (prog-mode . company-mode))
 #+END_SRC
 
 * Large files
