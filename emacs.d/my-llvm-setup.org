@@ -1,0 +1,80 @@
+#+STARTUP: overview
+
+* For LLVM
+#+BEGIN_SRC emacs-lisp
+;; Package setup
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(package-initialize)
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+(eval-when-compile (require 'use-package))
+
+;; Projectile for project management
+(use-package projectile
+  :ensure t
+  :init (projectile-mode +1)
+  :bind-keymap ("C-c p" . projectile-command-map)
+  :config
+  (setq projectile-project-search-path '("~/llvm-project/"))
+  (setq projectile-switch-project-action #'projectile-dired))
+
+;; LSP for IntelliSense
+(use-package lsp-mode
+  :ensure t
+  :hook ((c-mode c++-mode) . lsp) ; Enable for C/C++ files
+  :config
+  (setq lsp-prefer-flymake nil) ; Use flycheck
+  (setq lsp-idle-delay 0.5)
+  (setq lsp-clients-clangd-args '("--compile-commands-dir=build"))
+  (add-hook 'lsp-mode-hook
+            (lambda () (when (string-match "llvm-project" (buffer-file-name))
+                         (lsp))))) ; Auto-enable LSP for LLVM
+
+(use-package lsp-ui
+  :ensure t
+  :commands lsp-ui-mode
+  :config
+  (setq lsp-ui-sideline-enable t)
+  (setq lsp-ui-doc-enable t))
+
+;; Flycheck for syntax checking
+(use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode))
+
+;; Large files
+(use-package vlf
+  :ensure t
+  :config (require 'vlf-setup))
+(global-so-long-mode 1)
+(defun my/large-file-hook ()
+  (when (> (buffer-size) (* 1024 1024))
+    (fundamental-mode)
+    (font-lock-mode -1)
+    (lsp-mode -1)))
+(add-hook 'find-file-hook #'my/large-file-hook)
+
+;; LLVM-specific modes (from llvm/utils/emacs)[](https://github.com/llvm-mirror/llvm/tree/master/utils/emacs)
+(setq load-path (cons (expand-file-name "~/llvm-project/llvm/utils/emacs") load-path))
+(require 'llvm-mode)    ; For .ll files
+(require 'tablegen-mode) ; For .td files
+
+;; LLVM coding style[](https://github.com/llvm-mirror/llvm/blob/master/utils/emacs/emacs.el)
+(c-add-style "llvm.org"
+             '("gnu"
+               (fill-column . 80)
+               (c++-indent-level . 2)
+               (c-basic-offset . 2)
+               (indent-tabs-mode . nil)
+               (c-offsets-alist . ((arglist-intro . ++)
+                                   (innamespace . 0)
+                                   (member-init-intro . ++)
+                                   (statement-cont . llvm-lineup-statement)))))
+(add-hook 'c-mode-common-hook
+          (lambda ()
+            (when (string-match "llvm-project" (buffer-file-name))
+              (c-set-style "llvm.org"))))
+
+#+END_SRC
